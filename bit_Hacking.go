@@ -5,7 +5,7 @@ import (
 )
 
 // iota consecutives numbers
-// _ number are ignored
+// _ numbers are ignored
 const (
 	// you can do it
 	// _  = iota             // 0
