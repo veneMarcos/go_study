@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"runtime"
 	"sync"
+	"sync/atomic"
 )
 
 var wg sync.WaitGroup
 var mu sync.Mutex
-var count int
+var count int32
 
 const goroutinesQuantity = 100
 
@@ -26,12 +27,10 @@ func createGoroutines(i int) {
 	wg.Add(i)
 	for j := 0; j < i; j++ {
 		go func() {
-			mu.Lock()
-			v := count
+			atomic.AddInt32(&count, 1)
+			v := atomic.LoadInt32(&count)
 			runtime.Gosched()
-			v++
-			count = v
-			mu.Unlock()
+			fmt.Println(v)
 			wg.Done()
 		}()
 	}
