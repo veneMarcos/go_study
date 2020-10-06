@@ -18,7 +18,7 @@ func work(s string) chan string {
 	channel := make(chan string)
 
 	go func(s string, c chan string) {
-		for i := 1; ; i++ {
+		for i := ; ; i++ {
 			c <- fmt.Sprintf("Function %v diz: %v", s, i)
 			time.Sleep(time.Millisecond * time.Duration(rand.Intn(1e3)))
 		}
