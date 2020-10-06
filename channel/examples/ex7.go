@@ -32,7 +32,12 @@ func receive(par, odd chan int, quit chan bool) {
 			fmt.Println("The received number:", v, "is par")
 		case v := <-odd:
 			fmt.Println("The received number:", v, "is odd")
-		case <-quit:
+		case v, ok := <-quit:
+			if !ok {
+				fmt.Println("Houston we have a problem", v)
+			} else {
+				fmt.Println("Finish. Received:", v)
+			}
 			return
 		}
 	}
